@@ -3,14 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Website</title>
+  <title>Github Projects</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
+      margin: 2rem auto;
+      padding: 1rem;
       background: #f9f9f9;
       color: #333;
+      max-width: 800px;
     }
 
     header {
@@ -35,10 +36,34 @@
       text-decoration: underline;
     }
 
+    .repo {
+      border-bottom: 1px solid #ddd;
+      padding: 1em 0;
+    }
+
+    .repo-summary {
+      cursor: pointer;
+      font-weight: bold;
+      margin-bottom: 0.5em; /* fixed: marginbottom → margin-bottom */
+    }
+
+    .repo-details {
+      display: none;
+      margin-left: 1rem;
+    }
+
+    a {
+      color: #0066cc;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
     main {
       padding: 2em;
-      max-width: 800px;
-      margin: auto;
+      margin-bottom: 2em;
     }
 
     footer {
@@ -54,7 +79,7 @@
 <body>
 
   <header>
-    <h1>Welcome to My Website</h1>
+    <h1>Projects</h1>
     <nav>
       <a href="index.html">Home</a>
       <a href="projects.html">Projects</a>
@@ -63,9 +88,56 @@
   </header>
 
   <main>
-    <h2>This is a placeholder</h2>
-    <p>You will see my Projects here.</p>
+    <h2>My GitHub projects</h2>
+    <p>Here you will be able to see all my GitHub projects that I worked on or currently am working on.</p>
   </main>
+
+  <div id="projects">Loading...</div>
+
+  <script>
+    const username = 'bastionwolfe';
+    const container = document.getElementById('projects');
+
+    // Use backticks ` ` to enable template literals (for ${username} to work)
+    fetch(`https://api.github.com/users/${username}/repos?sort=updated`)
+      .then(res => res.json())
+      .then(repos => {
+        container.innerHTML = '';
+        repos.forEach(repo => {
+          const wrapper = document.createElement('div');
+          wrapper.className = 'repo';
+
+          // Fixed typo: creatElement → createElement
+          const summary = document.createElement('div');
+          summary.className = 'repo-summary';
+          summary.textContent = `▶ ${repo.name}`;
+
+          const details = document.createElement('div');
+          details.className = 'repo-details';
+          // Use backticks for multiline template literal
+          details.innerHTML = `
+            <p><strong>Description:</strong> ${repo.description || 'No Description'}</p>
+            <p><strong>Language:</strong> ${repo.language || 'unknown'}</p>
+            <p><strong>Stars:</strong> ${repo.stargazers_count}</p>
+            <p><a href="${repo.html_url}" target="_blank">View on GitHub</a></p>
+          `;
+
+          summary.addEventListener('click', () => {
+            const isOpen = details.style.display === 'block';
+            details.style.display = isOpen ? 'none' : 'block';
+            summary.textContent = `${isOpen ? '▶' : '▼'} ${repo.name}`;
+          });
+
+          wrapper.appendChild(summary);
+          wrapper.appendChild(details);
+          container.appendChild(wrapper);
+        });
+      })
+      .catch(err => {
+        console.error(err);
+        container.textContent = 'Failed to load projects.';
+      });
+  </script>
 
   <footer>
     &copy; 2025 My Website. All rights reserved.
