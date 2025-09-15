@@ -11,6 +11,10 @@
       padding: 0;
       background: #f9f9f9;
       color: #333;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
 
     header {
@@ -18,6 +22,7 @@
       color: #fff;
       padding: 1em 2em;
       text-align: center;
+      flex-shrink: 0;
     }
 
     nav {
@@ -36,18 +41,49 @@
     }
 
     main {
-      padding: 2em;
+      flex-grow: 1;
       max-width: 800px;
       margin: auto;
+      padding: 2em;
+      text-align: center;
+      transition: opacity 0.5s ease;
+      opacity: 1;
+      user-select: none;
+      position: relative;
+    }
+
+    main.hidden {
+      opacity: 0;
+    }
+
+    #progress-dots {
+      display: flex;
+      justify-content: center;
+      margin-top: 1em;
+      gap: 10px;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #ccc;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .dot.active {
+      background: #333;
     }
 
     footer {
       text-align: center;
       padding: 1em;
       background: #eee;
-      margin-top: 3em;
+      margin-top: auto;
       font-size: 0.9em;
       color: #777;
+      flex-shrink: 0;
     }
   </style>
 </head>
@@ -62,15 +98,107 @@
     </nav>
   </header>
 
-  <main>
-    <h2>Hello 👋</h2>
-    <p>This is the homepage of my personal site.</p>
-    <p>Use the navigation above to check out my <strong>projects</strong> and read my <strong>blog</strong>.</p>
+  <main id="main-content">
+    <h2 id="section-title">Hello 👋</h2>
+    <p id="section-text">This is the homepage of my personal site.</p>
+    <div id="progress-dots"></div>
   </main>
 
   <footer>
     &copy; 2025 Zach Music. Released under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a>.
   </footer>
+
+  <script>
+    const sections = [
+      {
+        title: "Hello 👋",
+        text: "This is the homepage of my personal site."
+      },
+      {
+        title: "Projects",
+        text: "Use the navigation above to check out my current projects."
+      },
+      {
+        title: "Dev Blog",
+        text: "Read my latest posts and follow progress on my game."
+      },
+      {
+        title: "About me",
+        text: "Learn more about me, my skills, and what I do."
+      },
+      {
+        title: "Thanks!",
+        text: "Thanks for visiting! Feel free to reach out for any inquiries."
+      }
+    ];
+
+    let current = 0;
+    let canScroll = true;
+
+    const main = document.getElementById('main-content');
+    const title = document.getElementById('section-title');
+    const text = document.getElementById('section-text');
+    const dotsContainer = document.getElementById('progress-dots');
+
+    sections.forEach((_, idx) => {
+      const dot = document.createElement('div');
+      dot.classList.add('dot');
+      if (idx === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => {
+        if (canScroll && current !== idx) {
+          goToSection(idx);
+        }
+      });
+      dotsContainer.appendChild(dot);
+    });
+
+    const dots = dotsContainer.querySelectorAll('.dot');
+
+    function updateDots() {
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle('active', idx === current);
+      });
+    }
+
+    function updateSection(direction) {
+      if (!canScroll) return;
+
+      let nextIndex = current;
+      if (direction === 'down' && current < sections.length - 1) {
+        nextIndex++;
+      } else if (direction === 'up' && current > 0) {
+        nextIndex--;
+      } else {
+        return;
+      }
+
+      goToSection(nextIndex);
+    }
+
+    function goToSection(idx) {
+      canScroll = false;
+      main.classList.add('hidden');
+
+      setTimeout(() => {
+        current = idx;
+        title.textContent = sections[current].title;
+        text.textContent = sections[current].text;
+        updateDots();
+        main.classList.remove('hidden');
+        canScroll = true;
+      }, 500);
+    }
+
+    window.addEventListener('wheel', e => {
+      const direction = e.deltaY > 0 ? 'down' : 'up';
+      updateSection(direction);
+    });
+
+    window.addEventListener('keydown', e => {
+      if (e.key === 'ArrowDown') updateSection('down');
+      if (e.key === 'ArrowUp') updateSection('up');
+    });
+  </script>
 
 </body>
 </html>
