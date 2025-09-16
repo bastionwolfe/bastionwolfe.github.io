@@ -108,7 +108,7 @@
     const username = 'bastionwolfe';
     const container = document.getElementById('projects');
 
-    // Use backticks ` ` to enable template literals (for ${username} to work)
+    
     fetch(`https://api.github.com/users/${username}/repos?sort=updated`)
       .then(res => res.json())
       .then(repos => {
@@ -117,14 +117,13 @@
           const wrapper = document.createElement('div');
           wrapper.className = 'repo';
 
-          // Fixed typo: creatElement → createElement
+          
           const summary = document.createElement('div');
           summary.className = 'repo-summary';
           summary.textContent = `▶ ${repo.name}`;
 
           const details = document.createElement('div');
           details.className = 'repo-details';
-          // Use backticks for multiline template literal
           details.innerHTML = `
             <p><strong>Description:</strong> ${repo.description || 'No Description'}</p>
             <p><strong>Language:</strong> ${repo.language || 'unknown'}</p>
@@ -133,10 +132,27 @@
           `;
 
           summary.addEventListener('click', () => {
-            const isOpen = details.style.display === 'block';
-            details.style.display = isOpen ? 'none' : 'block';
-            summary.textContent = `${isOpen ? '▶' : '▼'} ${repo.name}`;
-          });
+          const isOpen = details.style.display === 'block';
+
+          if (isOpen) {
+            details.style.display = 'none';
+            summary.textContent = `▶ ${repo.name}`;
+          } else {
+            details.style.display = 'block';
+            summary.textContent = `▼ ${repo.name}`;
+
+            if (!details.querySelector('iframe')) {
+              const iframe = document.createElement('iframe');
+              iframe.src = repo.html_url;
+              iframe.width = '100%';
+              iframe.height = '600';
+              iframe.style.border = '1px solid #ccc';
+              iframe.style.marginTop = '1em';
+              iframe.loading = 'lazy';
+              details.appendChild(iframe);
+            }
+          }
+        });
 
           wrapper.appendChild(summary);
           wrapper.appendChild(details);
