@@ -125,17 +125,13 @@
         items.forEach(item => {
           const li = document.createElement('li');
 
-          if (item.type === 'dir') {
+           if (item.type === 'dir') {
             li.innerHTML = `📁 <a href="#">${item.name}</a>`;
-            const link = li.querySelector('a');
-            link.onclick = (e) => {
+            li.querySelector('a').onclick = (e) => {
+
               e.preventDefault();
-              if (li.querySelector('ul')) return;
-              const subContainer = document.createElement('div');
-              subContainer.textContent = 'Loading...';
-              li.appendChild(subContainer);
-              loadRepoContents(repoName, item.path, subContainer);
-            };
+              li.innerHTML += '<div>Loading...</div>';
+              loadRepoContents(repoName, item.path, li);
           } else if (item.type === 'file') {
             li.innerHTML = `📄 <a href="#">${item.name}</a>`;
             li.querySelector('a').onclick = (e) => {
