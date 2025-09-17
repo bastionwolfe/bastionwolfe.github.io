@@ -105,48 +105,115 @@
   <div id="projects">Loading...</div>
 
   <script>
-    const username = 'bastionwolfe';
-    const container = document.getElementById('projects');
+  const username = 'bastionwolfe';
+  const container = document.getElementById('projects');
 
-    
-    fetch(`https://api.github.com/users/${username}/repos?sort=updated`)
+  function escapeHtml(str) {
+    return str.replace(/&/g, "&amp;")
+              .replace(/</g, "&lt;")
+              .replace(/>/g, "&gt;");
+  }
+
+  function loadRepoContents(repoName, path, target) {
+    const url = `https://api.github.com/repos/${username}/${repoName}/contents/${path}`;
+    fetch(url)
       .then(res => res.json())
-      .then(repos => {
-        container.innerHTML = '';
-        repos.forEach(repo => {
-          const wrapper = document.createElement('div');
-          wrapper.className = 'repo';
+      .then(items => {
+        const list = document.createElement('ul');
+        list.style.marginTop = '0.5em';
 
-          
-          const summary = document.createElement('div');
-          summary.className = 'repo-summary';
-          summary.textContent = `▶ ${repo.name}`;
+        items.forEach(item => {
+          const li = document.createElement('li');
 
-          const details = document.createElement('div');
-          details.className = 'repo-details';
-          details.innerHTML = `
-            <p><strong>Description:</strong> ${repo.description || 'No Description'}</p>
-            <p><strong>Language:</strong> ${repo.language || 'unknown'}</p>
-            <p><strong>Stars:</strong> ${repo.stargazers_count}</p>
-            <p><a href="${repo.html_url}" target="_blank">View on GitHub</a></p>
-          `;
+          if (item.type === 'dir') {
+            li.innerHTML = `📁 <a href="#">${item.name}</a>`;
+            li.querySelector('a').onclick = (e) => {
+              e.preventDefault();
+              li.innerHTML += '<div>Loading...</div>';
+              loadRepoContents(repoName, item.path, li);
+            };
+          } else if (item.type === 'file') {
+            li.innerHTML = `📄 <a href="#">${item.name}</a>`;
+            li.querySelector('a').onclick = (e) => {
+              e.preventDefault();
+              loadFileContent(repoName, item.path, li);
+            };
+          }
 
-          summary.addEventListener('click', () => {
-          const isOpen = details.style.display === 'block';
-            details.style.display = isOpen ? 'none' : 'block';
-            summary.textContent = `${isOpen ? '▶' : '▼'} ${repo.name}`;
-          });
-
-          wrapper.appendChild(summary);
-          wrapper.appendChild(details);
-          container.appendChild(wrapper);
+          list.appendChild(li);
         });
+
+        target.appendChild(list);
       })
       .catch(err => {
         console.error(err);
-        container.textContent = 'Failed to load projects.';
+        target.innerHTML += '<p style="color:red;">Failed to load contents.</p>';
       });
-  </script>
+  }
+
+  function loadFileContent(repoName, path, container) {
+    const url = `https://raw.githubusercontent.com/${username}/${repoName}/main/${path}`;
+    fetch(url)
+      .then(res => res.text())
+      .then(text => {
+        const pre = document.createElement('pre');
+        pre.style.whiteSpace = 'pre-wrap';
+        pre.style.background = '#f0f0f0';
+        pre.style.padding = '1em';
+        pre.style.marginTop = '0.5em';
+        pre.textContent = text;
+        container.appendChild(pre);
+      })
+      .catch(err => {
+        console.error(err);
+        container.innerHTML += '<p style="color:red;">Failed to load file.</p>';
+      });
+  }
+
+  fetch(`https://api.github.com/users/${username}/repos?sort=updated`)
+    .then(res => res.json())
+    .then(repos => {
+      container.innerHTML = '';
+      repos.forEach(repo => {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'repo';
+
+        const summary = document.createElement('div');
+        summary.className = 'repo-summary';
+        summary.textContent = `▶ ${repo.name}`;
+
+        const details = document.createElement('div');
+        details.className = 'repo-details';
+        details.innerHTML = `
+          <p><strong>Description:</strong> ${repo.description || 'No Description'}</p>
+          <p><strong>Language:</strong> ${repo.language || 'unknown'}</p>
+          <p><strong>Stars:</strong> ${repo.stargazers_count}</p>
+          <p><a href="${repo.html_url}" target="_blank">View on GitHub</a></p>
+          <div class="repo-browser"></div>
+        `;
+
+        summary.addEventListener('click', () => {
+          const isOpen = details.style.display === 'block';
+          details.style.display = isOpen ? 'none' : 'block';
+          summary.textContent = `${isOpen ? '▶' : '▼'} ${repo.name}`;
+
+          const browser = details.querySelector('.repo-browser');
+          if (!isOpen && browser.childNodes.length === 0) {
+            browser.innerHTML = '<p>Loading contents...</p>';
+            loadRepoContents(repo.name, '', browser);
+          }
+        });
+
+        wrapper.appendChild(summary);
+        wrapper.appendChild(details);
+        container.appendChild(wrapper);
+      });
+    })
+    .catch(err => {
+      console.error(err);
+      container.textContent = 'Failed to load projects.';
+    });
+</script>
 
   <footer>
     <p>
