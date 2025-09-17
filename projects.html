@@ -127,11 +127,16 @@
 
           if (item.type === 'dir') {
             li.innerHTML = `📁 <a href="#">${item.name}</a>`;
-            li.querySelector('a').onclick = (e) => {
+            const link = li.querySelector('a');
+            link.onclick = (e) => {
               e.preventDefault();
-              li.innerHTML += '<div>Loading...</div>';
-              loadRepoContents(repoName, item.path, li);
+              if (li.querySelector('ul')) return;
+              const subContainer = document.createElement('div');
+              subContainer.textContent = 'Loading...';
+              li.appendChild(subContainer);
+              loadRepoContents(repoName, item.path, subContainer);
             };
+          }
           } else if (item.type === 'file') {
             li.innerHTML = `📄 <a href="#">${item.name}</a>`;
             li.querySelector('a').onclick = (e) => {
