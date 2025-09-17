@@ -136,7 +136,6 @@
               li.appendChild(subContainer);
               loadRepoContents(repoName, item.path, subContainer);
             };
-          }
           } else if (item.type === 'file') {
             li.innerHTML = `📄 <a href="#">${item.name}</a>`;
             li.querySelector('a').onclick = (e) => {
