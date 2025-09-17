@@ -133,26 +133,9 @@
 
           summary.addEventListener('click', () => {
           const isOpen = details.style.display === 'block';
-
-          if (isOpen) {
-            details.style.display = 'none';
-            summary.textContent = `▶ ${repo.name}`;
-          } else {
-            details.style.display = 'block';
-            summary.textContent = `▼ ${repo.name}`;
-
-            if (!details.querySelector('iframe')) {
-              const iframe = document.createElement('iframe');
-              iframe.src = repo.html_url;
-              iframe.width = '100%';
-              iframe.height = '600';
-              iframe.style.border = '1px solid #ccc';
-              iframe.style.marginTop = '1em';
-              iframe.loading = 'lazy';
-              details.appendChild(iframe);
-            }
-          }
-        });
+            details.style.display = isOpen ? 'none' : 'block';
+            summary.textContent = `${isOpen ? '▶' : '▼'} ${repo.name}`;
+          });
 
           wrapper.appendChild(summary);
           wrapper.appendChild(details);
