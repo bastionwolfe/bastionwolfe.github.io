@@ -119,28 +119,49 @@
 
   function loadRepoContents(repoName, path, target) {
     const url = `https://api.github.com/repos/${username}/${repoName}/contents/${path}`;
+    target.innerHTML = ''; 
+    const loadingDiv = document.createElement('div');
+    loadingDiv.textContent = 'Loading...';
+    target.appendChild(loadingDiv);
+
     fetch(url)
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) throw new Error('Network response not OK');
+        return res.json();
+      })
       .then(items => {
+        target.innerHTML = '';
+
         const list = document.createElement('ul');
         list.style.marginTop = '0.5em';
 
         items.forEach(item => {
           const li = document.createElement('li');
-
-           if (item.type === 'dir') {
-            li.innerHTML = `📁 <a href="#">${item.name}</a>`;
-            li.querySelector('a').onclick = (e) => {
-
+          if (item.type === 'dir') {
+            const a = document.createElement('a');
+            a.href = '#';
+            a.textContent = item.name;
+            a.onclick = (e) => {
               e.preventDefault();
-              li.innerHTML += '<div>Loading...</div>';
-              loadRepoContents(repoName, item.path, li);
+              if (li.querySelector('ul')) {
+                const ul = li.querySelector('ul');
+                ul.style.display = ul.style.display === 'none' ? 'block' : 'none';
+              } else {
+                loadRepoContents(repoName, item.path, li);
+              }
+            };
+            li.textContent = '📁 ';
+            li.appendChild(a);
           } else if (item.type === 'file') {
-            li.innerHTML = `📄 <a href="#">${item.name}</a>`;
-            li.querySelector('a').onclick = (e) => {
+            const a = document.createElement('a');
+            a.href = '#';
+            a.textContent = item.name;
+            a.onclick = (e) => {
               e.preventDefault();
               loadFileContent(repoName, item.path, li);
             };
+            li.textContent = '📄 ';
+            li.appendChild(a);
           }
 
           list.appendChild(li);
@@ -150,7 +171,7 @@
       })
       .catch(err => {
         console.error(err);
-        target.innerHTML += '<p style="color:red;">Failed to load contents.</p>';
+        target.innerHTML = '<p style="color:red;">Failed to load contents.</p>';
       });
   }
 
@@ -160,11 +181,21 @@
       existingPre.classList.toggle('hidden-code');
       return;
     }
-      
+
     const url = `https://raw.githubusercontent.com/${username}/${repoName}/main/${path}`;
+
+    let loadingMessage = document.createElement('div');
+    loadingMessage.textContent = 'Loading file...';
+    container.appendChild(loadingMessage);
+
     fetch(url)
-      .then(res => res.text())
+      .then(res => {
+        if (!res.ok) throw new Error('Network response not OK');
+        return res.text();
+      })
       .then(text => {
+        loadingMessage.remove();
+
         const pre = document.createElement('pre');
         pre.style.whiteSpace = 'pre-wrap';
         pre.style.background = '#f0f0f0';
@@ -175,12 +206,15 @@
       })
       .catch(err => {
         console.error(err);
-        container.innerHTML += '<p style="color:red;">Failed to load file.</p>';
+        loadingMessage.textContent = 'Failed to load file.';
       });
   }
 
   fetch(`https://api.github.com/users/${username}/repos?sort=updated`)
-    .then(res => res.json())
+    .then(res => {
+      if (!res.ok) throw new Error('Network response not OK');
+      return res.json();
+    })
     .then(repos => {
       container.innerHTML = '';
       repos.forEach(repo => {
@@ -222,21 +256,21 @@
       console.error(err);
       container.textContent = 'Failed to load projects.';
     });
-</script>
+  </script>
 
   <footer>
     <p>
-    Connect with me: 
-    <a href="https://github.com/bastionwolfe" target="_blank" rel="noopener noreferrer">
-      <i class="fab fa-github"></i> GitHub
-    </a> | 
-    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
-      <i class="fab fa-linkedin"></i> WIP
-    </a>
-    <a href="https://itch.io/profile/vinylocean" target="_blank" rel="noopener noreferrer">
-  <i class="fab fa-itch-io"></i> Itch.io
-</a>
-  </p>
+      Connect with me: 
+      <a href="https://github.com/bastionwolfe" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-github"></i> GitHub
+      </a> | 
+      <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-linkedin"></i> WIP
+      </a>
+      <a href="https://itch.io/profile/vinylocean" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-itch-io"></i> Itch.io
+      </a>
+    </p>
     &copy; 2025 Zach Music. Released under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a>.
   </footer>
 
