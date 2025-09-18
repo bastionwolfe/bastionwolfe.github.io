@@ -84,6 +84,9 @@
       font-size: 0.9em;
       color: #777;
     }
+    .hidden-code {
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -152,6 +155,12 @@
   }
 
   function loadFileContent(repoName, path, container) {
+    const existingPre = container.querySelector('pre');
+    if (existingPre) {
+      existingPre.classList.toggle('hiddencode');
+      return;
+    }
+      
     const url = `https://raw.githubusercontent.com/${username}/${repoName}/main/${path}`;
     fetch(url)
       .then(res => res.text())
