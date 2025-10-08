@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Second Blog Post</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 700px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: #f9f9f9;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    header {
+      border-bottom: 2px solid #333;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      margin: 0;
+      padding-bottom: 0.5rem;
+    }
+
+    time {
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    a.back-link {
+      display: inline-block;
+      margin-top: 2rem;
+      text-decoration: none;
+      color: #0066cc;
+      font-weight: bold;
+    }
+    a.back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Ideas on armor piercing</h1>
+    <time datetime="2025-10-08">October 08, 2025</time>
+  </header>
+
+  <article>
+    <p>Hello everyone.</p>
+    <p>It has only been a week since my last post but, I found a very interesting idea I couldn't wait to talk about.</p>
+    <p>I would like to start off by mentioning that I have been working on the physics engine currently. I started working on AABB and circular collision implmentation for the three main data structures I am using(AoS, SoA, AoSoA8).</p>
+    <p>I started to think about a specific term and number used in collisions named restitution. Restitution in physics terminology at least describes how bouncy an object it. I can hear you saying "How does this relate to armor penetration in your game?".</p>
+    <p>The answer isn't as straight-forward as I would like but I do think it's a great plan. When you plan on having layers with differing materials hardness and weight, you have to implement something akin to an onion. The first layer is the outer armor, second is clothing, etc...</p>
+    <p>This takes up an incredible amount of the resources I would rather use for other portions of the game. So I won't be implementing that at this time with my currecnt knowledge that I have.
+     Instead, I will be using restituion stats to determine penetration. Each weapon and armor will have an innate restitution state based off of how well it is made(this might change in the future). Then when a weapon and a piece of armor clashes with enough momentum, there will be a restituion comparison.</p>
+    <p>This comparison will either determine whether the weapon will deflect off the armor or pierce the armor. If the restitution of the armor is higher than the weapon, minimal damage will be done to that unit and the armor will be stay intact. 
+    If a weapon's restitution is higher than the armor, then the armor will be pierce or damaged and that unit will take more damage. Any leftover restitution could act like drag after the penetration too.</p>
+    <p>This is still a work in progress and won't be implemented for some time but, I believe it's a great way to implement armor damage and heavier wounds without giving up too much of the resources to the physics engine.</p>
+    <p>I will still post a post next week so, consider this a freebie into the mind of me.</p>
+    <p>Until I figure a way to implement comments, please send me your thoughts through either itch.io or github anyways you can. Just make sure you put the post you are referring to in your own post.</p>
+    <p>Thanks for reading and I will be back again next week!</p>
+  </article>
+
+  <a href="../blog.html" class="back-link">&larr; Back to Blog</a>
+
+</body>
+</html>
