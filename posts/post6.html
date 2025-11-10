@@ -1,1 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Low-level work</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 700px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: #f9f9f9;
+      color: #333;
+      line-height: 1.6;
+    }
 
+    header {
+      border-bottom: 2px solid #333;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      margin: 0;
+      padding-bottom: 0.5rem;
+    }
+
+    time {
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    a.back-link {
+      display: inline-block;
+      margin-top: 2rem;
+      text-decoration: none;
+      color: #0066cc;
+      font-weight: bold;
+    }
+    a.back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Low-level work</h1>
+    <time datetime="2025-10-31">November 10th, 2025</time>
+  </header>
+
+  <article>
+    <p>Hello everyone.</p>
+    <p>I have been sidetracked again!</p>
+    <p>Last week, I showed the results of my io code that was made to specficially get rid of the overhead and unneeded things that the std library contains. I also got a new laptop I have been using frequently for school and programming.
+    It was on sale so I got a good price on it but it has a dedicated grphics card and enough ram for 64 gigs. The dedicated GPU will be needed when I start working with some higher-level items in this project. Overall, it was a blot to my wallet but a much needed one.</p>
+    <p>Instead of progressing my physics engine and following the outline I set for myself(Bad!) I was inspired to try and create more custom light-weight versions of the standard C++ libs.
+    I have created three different tools that I will be using in this project. One to replace cmath, one for random, and one for chrono. I am happy to say that Chrono and random was faster and has less overhead compared to the standard libs.
+    cmath though, is a different story. My library is slower per million inquiries. They are slower by a tenths of miliseconds but I still have opted to use this over cmath. My thoughts and wants is to make everything specifically for this project.
+    If this requires me to take a hit in perfomance when comparing to the standard libraries, I will do so until it creates a bottleneck in the program. This is partially my stubborness and passion for game development. I truly believe it's better to design our own systems when creating.
+    There is nothing wrong when useing pre-made engines but, you can easily tell what game is made in which engine and they all tend to have the same limitations because of it.</p>
+    <p>Anyways, back on topic, I figured that these libraries can be used to replace the usage of the standard libraries in my physics engine. That is my excuse for taking a break from the physics engine.</p>
+    <p>Recently, I started university again with hopes to get a CS degree and be able to immerse myself in this craft. I am about halfway through my associates(with promise to get a bachelors tow years after I get my associates) and most of the classese left are the programming classes.
+    I am looking forward to putting my python skills to the test(started programming in python) then working in C++ the following semester. Hopefully the things i learned line up with the class.</p>
+  <p>Anyways enough about me,
+  
+  My goals for the next two weeks is to see where this rabbit hole takes me of creating functions to replace standard lib functions. I also have an experimental data storage in the works for the map. Expiremental as I haven't seen it implemented yet but theory dictates insane RAM increases at the negligable cose of CPU cycles.
+  More will be expanded upon later once tested and implemented(These are added to a private git. I Think I set it so activity on my private gits can be seen to the public).
+  Thank you for reading, I hope you have a great few weeks and see you next time!</p>
+  </article>
+
+  <a href="../blog.html" class="back-link">&larr; Back to Blog</a>
+
+</body>
+</html>
