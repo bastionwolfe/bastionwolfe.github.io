@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bonus blog</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 700px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: #f9f9f9;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    header {
+      border-bottom: 2px solid #333;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      margin: 0;
+      padding-bottom: 0.5rem;
+    }
+
+    time {
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    a.back-link {
+      display: inline-block;
+      margin-top: 2rem;
+      text-decoration: none;
+      color: #0066cc;
+      font-weight: bold;
+    }
+    a.back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Bonus Blog</h1>
+    <time datetime="2025-10-31">November 17th, 2025</time>
+  </header>
+
+  <article>
+    <p>Hello everyone.</p>
+    <p>I have time and a good chunk of updates already that I thought I should write a blog this week to go over it.</p>
+    <p>The main thing i worked on is chunks and terrain generation. Currently, I have a system I am working on which seems to be very viable and workable.
+    This system stores map data into two ternary inspired bit storage systems. One for height and one for Biome. The main issue you run into is it can only hold a max of 7 values.
+    The 7 values isn't enough to use exact values you might see when using uint8_t(which is the fallback). So there is a challenge to making this system work. Ultimately if it does, I will still see a bit of an increase in ram usage and cpu cycles compared to normal byte-styled storage.
+    I think I can feasibly get away with it by using two of my storage systems which is 60-70 percent more effecient. The math doesn't add up if you look at only this. I will be using this to put more of a focus on the gameworld.
+    It isn't going to be the biggest map in history and thats fine. Bigger isn't always better. I am initially planning on having the world generate a 16k x 16k tile map.
+    That would be a 256,000,000 tile map which is mediocre in terms of scale but, I'm dividing the tiles. Each tile will be divided into 4 subtiles giving more detail to the world we play in.
+    After all, what point is an immersive open-world game if the world itself looks bad? so the 16k x 16k world map is really a 32k x 32k map. which is somewhere around 1 billion subtiles.
+    I think the math shows it being around 400 mbs of ram space for the full map but I will be dividing it into six bigger regions. These bigger regions will be loaded to the RAM when in one or near the border of one. 
+    The rest of the regions will be zipped away for storage on the disk. All pregenerated and made. Only to be updated when marked dirty due to a change to the chunk. When stored and zipped away, the terrain will only take about 10-30 mbs of space. Very effecient due to the simplistic ternary style i am trying.</p>
+    <p>Finally, 
+    If this map size seems to work well whe nthe renderer and everything else is added, I'll have a slider for map generation for size when starting a new game. It will have the lowest size that can work with what I want to really the biggest size that won't make it feel empty.
+    The campaign map/s will be there always but will be the lowest size for those that can't run games well. I was once a potato PC owner too and can't turn my back on someone who is like me when I was a kid and excited to play games.
+    </p>
+    <p>I have next week off, I have an issue with not working on my project in periods like this. I will make a valiant effort to turn this around. After all, this game will only be made as fast as I make it.
+    Have a good week everyone.</p>
+  </article>
+
+  <a href="../blog.html" class="back-link">&larr; Back to Blog</a>
+
+</body>
+</html>
