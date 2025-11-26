@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>World Generation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 700px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: #f9f9f9;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    header {
+      border-bottom: 2px solid #333;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      margin: 0;
+      padding-bottom: 0.5rem;
+    }
+
+    time {
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    a.back-link {
+      display: inline-block;
+      margin-top: 2rem;
+      text-decoration: none;
+      color: #0066cc;
+      font-weight: bold;
+    }
+    a.back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>World Generation</h1>
+    <time datetime="2025-10-31">November 25th, 2025</time>
+  </header>
+
+  <article>
+    <p>Hello everyone.</p>
+    <p>Sorry for the late post, I have been busy with holiday preperationss. I want to go over world generation and the ideas that go weith the territory.
+    I am doing a well-known biome based world generation. Games have biomes that dictate what things spawn there, how it looks and the difficulty of surivival.
+    With the storage system I made up, I am limiting myself to 7 biomes. 7 isn't a lot, in fact, it's a whole lot less than what I really want.
+    So let's look at it in a different frame. Earth debatebly has 5-8 biomes, which doesn't seem like it when you travel across regions and continents.(at least for me)
+    So it gave me an idea, lets just have a biome influnce climate.</p>
+    <P>When the world is generated, it first generates the tile mape then it applies bioems. the biomes will be placed by a helper to ensure its diverse and meets the needs of any settings set before the generation.
+    Each biome will affect the overall world and the sub-region within the region it is in. A desert will increase the temperature and reduce humidity while a rainforest increases humidty and temperature... etc.
+    But each sub-region grouping will have a group of biomes together. These will affect each other too essentially melding into a distinct biome all unto itself.
+    if 5 forests and 2 deserts are grouped together, it will become something more akin to a forest but with maybe the sparcity of a desert. 
+    The idea is that it will give way to seemingly limitless amount of biomes from a possbile combination of 7 base ones.
+    The rest of the things will follow rules found in our world. A tree doesn't care what biome it's in as long as it can grow, it will.
+    Plants will have a set range of climate settings they will appear in instead of biome dependency. It is taking some tweaking to make sure things look and feel right on top of acting right.
+    I hope that this simplicity will add to a more complex world with a reduced footprint on the system running it.</P>
+    <p>There is a saying about constraints, something or other about being able to surpass them to achieve things that aren't normally possible.
+    Constraint and freedom are some major driving factors in this project. I konw what I have and I know what it will be.
+    It's a matter of putting constraints down and seeing if they can be beaten logically.</p>
+    <p>With that said, Hope everyone has a great next two weeks,
+    Until next time!</p>
+  </article>
+
+  <a href="../blog.html" class="back-link">&larr; Back to Blog</a>
+
+</body>
+</html>
