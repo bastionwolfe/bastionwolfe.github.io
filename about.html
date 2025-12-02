@@ -10,10 +10,10 @@
   />
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Arial', sans-serif;
       margin: 0;
       padding: 0;
-      background: #f9f9f9;
+      background: #f4f4f9;
       color: #333;
     }
 
@@ -23,8 +23,6 @@
       padding: 1em 2em;
       text-align: center;
     }
-
-    
 
     nav {
       margin-top: 1em;
@@ -41,10 +39,58 @@
       text-decoration: underline;
     }
 
-    main {
-      padding: 2em;
-      max-width: 800px;
-      margin: auto;
+    .resume-container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 30px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1, h2, h3 {
+      color: #2a3d66;
+      font-weight: 600;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+
+    .section {
+      margin-bottom: 30px;
+      padding: 20px;
+      background: #f9f9f9;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .section h2 {
+      font-size: 24px;
+      color: #2a3d66;
+      margin-bottom: 10px;
+    }
+
+    .section ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .section ul li {
+      margin-bottom: 15px;
+      font-size: 16px;
+      color: #555;
+    }
+
+    .section ul li strong {
+      color: #2a3d66;
+    }
+
+    .section ul li span {
+      font-style: italic;
+      color: #999;
     }
 
     footer {
@@ -54,6 +100,34 @@
       margin-top: 3em;
       font-size: 0.9em;
       color: #777;
+    }
+
+    footer a {
+      color: #2a3d66;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    .footer-links {
+      text-align: center;
+      padding: 15px;
+      background: #eee;
+      margin-top: 40px;
+      font-size: 14px;
+    }
+
+    .footer-links a {
+      color: #2a3d66;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .footer-links a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -69,29 +143,78 @@
   </header>
 
   <main>
-    <h2>Who am I?</h2>
-    <p>My name is Zach Music.</p>
-    <p>I’m currently working as a helpdesk technician with over 3 years of experience supporting users and solving technical issues. I have a strong passion for coding and software development, which has motivated me to pursue an Associate’s/bachelor's degree in Computer Science.</p>
-    <p>This site is a space where I track and share my progress on personal projects, including a game I’m developing, as well as coursework from school. My career goal is to work in low-level C++ development. Ideally it will be for game engines, though I also find web development to be really exciting and fun to explore.</p>
-    <p>I got into programming through my first technology orientated position. I was able to excel to the point where I was able to use python and bash to script automations. From there I did a few gamejams with friends and was introduce to light html coding on websites. These experiences kept me engaged and working on my codes all while not giving me a sense of fatigue.</p>
-    <p>When I’m not coding or troubleshooting, you can usually find me hanging out with friends playing Dungeons & Dragons and video games. I’m also deeply interested in world-building for my game, including researching real-life armor, weapons, and history to add depth and authenticity. I believe a good mix of reality and fiction is what makes a great game push boundries.</p>
-    <p>Please feel free to reach out regarding anything. I’m always open to connecting, collaborating, and learning from others.</p>
+    <div class="resume-container">
+      <h1>Zach Music</h1>
+      <p style="text-align: center; font-size: 18px; color: #777;">Helpdesk Technician | Aspiring Software Developer | Gamer & Worldbuilder</p>
+
+      <div class="section">
+        <h2>Who Am I?</h2>
+        <p>I’m currently working as a helpdesk technician with over 3 years of experience supporting users and solving technical issues. I have a strong passion for coding and software development, which has motivated me to pursue an Associate’s/bachelor's degree in Computer Science.</p>
+        <p>This site is a space where I track and share my progress on personal projects, including a game I’m developing, as well as coursework from school. My career goal is to work in low-level C++ development. Ideally it will be for game engines, though I also find web development to be really exciting and fun to explore.</p>
+        <p>I got into programming through my first technology oriented position. I was able to excel to the point where I was able to use Python and Bash to script automations. From there I did a few game jams with friends and was introduced to light HTML coding on websites. These experiences kept me engaged and working on my codes, all while not giving me a sense of fatigue.</p>
+        <p>When I’m not coding or troubleshooting, you can usually find me hanging out with friends playing Dungeons & Dragons and video games. I’m also deeply interested in world building for my game, including researching real-life armor, weapons, and history to add depth and authenticity. I believe a good mix of reality and fiction is what makes a great game push boundaries.</p>
+        <p>Please feel free to reach out regarding anything. I’m always open to connecting, collaborating, and learning from others.</p>
+      </div>
+
+      <div class="section">
+        <h2>Experience</h2>
+        <ul>
+          <li>
+            <strong>Computer Service Technician</strong> | School District | <span>July 2024 - Present</span>
+            <p>Act as Level 1 + 2 support for students in middle school. Fix all technological issues in school regarding any kind of technology.
+            Order technology based on school needs.</p>
+          </li>
+          <li>
+            <strong>Junior System Administrator/helpdesk</strong> | Private Company | <span>October 2022 - July 2024</span>
+            <p>Asisted System Admin with python scripts. Acted as level 1 support for small business. built and ordered computer parts. Ordered technology that was needed by company.</p>
+          </li>
+        </ul>
+      </div>
+
+
+      <div class="section">
+        <h2>Skills</h2>
+        <ul>
+          <li><strong>Programming Languages:</strong> C++, Python, JavaScript, HTML, CSS</li>
+          <li><strong>Tools & Frameworks:</strong> Git, Node.js, Unity</li>
+          <li><strong>Other Skills:</strong> Game Development, Web Development, Problem Solving, Technical Support</li>
+        </ul>
+      </div>
+
+
+      <div class="section">
+        <h2>Education</h2>
+        <ul>
+          <li>
+            <strong>Associate's Degree in Computer Science(ongoing)</strong> | Aims University | <span>Graduating 2026</span>
+          </li>
+          <li>
+            <strong>High School Diploma</strong> | RMSEL | <span>Graduated 2015</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2>Interests</h2>
+        <ul>
+          <li>Game Development</li>
+          <li>World-building and Research (creating immersive experiences for games)</li>
+          <li>Dungeons & Dragons and Video Games</li>
+          <li>Learning about the world</li>
+          <li>Camping, hiking and expereincing new adventures!</li>
+        </ul>
+      </div>
+    </div>
   </main>
 
-  <footer>
+  <footer class="footer-links">
+    <p>Connect with me:</p>
     <p>
-    Connect with me: 
-    <a href="https://github.com/bastionwolfe" target="_blank" rel="noopener noreferrer">
-      <i class="fab fa-github"></i> GitHub
-    </a> | 
-    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
-      <i class="fab fa-linkedin"></i> WIP
-    </a>
-    <a href="https://itch.io/profile/vinylocean" target="_blank" rel="noopener noreferrer">
-  <i class="fab fa-itch-io"></i> Itch.io
-</a>
-  </p>
-    &copy; 2025 Zach Music. Released under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a>.
+      <a href="https://github.com/bastionwolfe" target="_blank"><i class="fab fa-github"></i> GitHub</a> |
+      <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a> |
+      <a href="https://itch.io/profile/vinylocean" target="_blank"><i class="fab fa-itch-io"></i> Itch.io</a>
+    </p>
+    <p>&copy; 2025 Zach Music. Released under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a>.</p>
   </footer>
 
 </body>
